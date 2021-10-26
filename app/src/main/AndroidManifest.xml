@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  package="com.zebra.jamesswinton.sethostnameutil">
+  <!-- Zebra Queries -->
+  <queries>
+    <package android:name="com.zebra.zebracontentprovider" />
+    <provider android:authorities="oem_info"
+      tools:ignore="ExportedContentProvider" />
+  </queries>
+  <queries>
+    <package android:name="com.symbol.emdk.emdkservice" />
+  </queries>
+  <!-- Zebra Permissions -->
+  <uses-permission android:name="com.zebra.provider.READ" />
+  <uses-permission android:name="com.symbol.emdk.permission.EMDK" />
+  <application
+    android:allowBackup="false"
+    android:icon="@mipmap/ic_launcher"
+    android:label="@string/app_name"
+    android:roundIcon="@mipmap/ic_launcher_round"
+    android:supportsRtl="true"
+    android:theme="@style/Theme.SetHostNameUtil">
+    <!-- EMDK Lib -->
+    <uses-library android:name="com.symbol.emdk" android:required="true" />
+    <!-- Activities -->
+    <activity
+      android:exported="true"
+      android:name=".MainActivity">
+      <!-- Default Activity -->
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+  </application>
+</manifest>
