@@ -4,6 +4,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Build.VERSION;
 import android.util.Log;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
@@ -42,6 +43,9 @@ public class MainActivity extends AppCompatActivity implements OnOemInfoRetrieve
       Uri.parse(SERIAL_URI)
   };
 
+  // OEM Info Package Name
+  private static final String OemInfoPackageName = "com.zebra.oeminfo";
+
   /**
    * Lifecycle Callbacks
    */
@@ -51,10 +55,20 @@ public class MainActivity extends AppCompatActivity implements OnOemInfoRetrieve
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
 
-    // Init XML
-    EMDKResults emdkManagerResults = EMDKManager.getEMDKManager(this, this);
-    if (emdkManagerResults == null || emdkManagerResults.statusCode != EMDKResults.STATUS_CODE.SUCCESS) {
-      Toast.makeText(MainActivity.this,"Could not obtain EMDKManager",
+    // Check for OEMIdentifiers Package
+    try {
+      // Verify OEMIdentifiers is installed
+      getPackageManager().getPackageInfo(OemInfoPackageName, PackageManager.GET_ACTIVITIES);
+
+      // Init XML
+      EMDKResults emdkManagerResults = EMDKManager.getEMDKManager(this, this);
+      if (emdkManagerResults == null || emdkManagerResults.statusCode != EMDKResults.STATUS_CODE.SUCCESS) {
+        Toast.makeText(MainActivity.this,"Could not obtain EMDKManager",
+            Toast.LENGTH_LONG).show();
+        finish();
+      }
+    } catch (PackageManager.NameNotFoundException e) {
+      Toast.makeText(MainActivity.this,"OEM Info Not Installed! Please update BSP",
           Toast.LENGTH_LONG).show();
       finish();
     }
@@ -136,8 +150,7 @@ public class MainActivity extends AppCompatActivity implements OnOemInfoRetrieve
             showXmlParsingError(parsingErrors);
             finish();
           }
-        })
-        .execute(serialPermissionXml);
+        }).execute(serialPermissionXml);
   }
 
   private void setHostName(String buildSerial) {

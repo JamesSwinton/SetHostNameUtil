@@ -26,9 +26,15 @@ public class Xml {
         "<wap-provisioningdoc>\n" +
         "  <characteristic type=\"Profile\">\n" +
         "    <parm name=\"ProfileName\" value=" + '"' + SetCustomHostNameProfileName + '"' + " />\n" +
-        "    <characteristic type=\"HostsMgr\">\n" +
-        "      <parm name=\"HostName\" value=" + '"' + hostName + '"' + " />\n" +
+        "    <characteristic version=\"5.0\" type=\"DhcpOptionMgr\">\n" +
+        "      <characteristic type=\"HostName\">\n" +
+        "        <parm name=\"HostNameState\" value=\"1\" />\n" +
+        "        <parm name=\"HostNameValue\" value=" + '"' + hostName + '"' + " />\n" +
+        "      </characteristic>\n" +
         "    </characteristic>\n" +
+        "    <characteristic version=\"5.1\" type=\"HostsMgr\">\n" +
+        "      <parm name=\"HostName\" value=" + '"' + hostName + '"' + " />\n" +
+        "    </characteristic>" +
         "  </characteristic>\n" +
         "</wap-provisioningdoc>";
   }

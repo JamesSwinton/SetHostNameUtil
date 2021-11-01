@@ -14,6 +14,8 @@
   <!-- Zebra Permissions -->
   <uses-permission android:name="com.zebra.provider.READ" />
   <uses-permission android:name="com.symbol.emdk.permission.EMDK" />
+  <!-- Google Permissions -->
+  <uses-permission android:name="READ_PHONE_STATE" />
   <application
     android:allowBackup="false"
     android:icon="@mipmap/ic_launcher"
