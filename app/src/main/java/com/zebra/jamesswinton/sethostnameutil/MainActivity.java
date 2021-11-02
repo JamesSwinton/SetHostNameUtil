@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements OnOemInfoRetrieve
     mProgressDialog.show();
 
     // Get Xml
-    String serialNumber = Build.MODEL + "_" + buildSerial;
+    String serialNumber = Build.MODEL + "-" + buildSerial;
     String hostNameXml = mXml.getHostNameXml(serialNumber);
 
     // Process Xml
